@@ -3,6 +3,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
+require('dotenv').config();
+
 // Create an MCP server
 const server = new McpServer({
   name: "Product Data Fetcher",
@@ -11,7 +13,8 @@ const server = new McpServer({
 
 async function getProductInfo() {
     try {
-        const response = await fetch('https://express-project-smoky.vercel.app/products')
+        const baseUrl = process.env.BASE_URL;
+        const response = await fetch(`${baseUrl}/products`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -24,7 +27,8 @@ async function getProductInfo() {
 
 async function getProductById(productId) {
     try {
-        const response = await fetch(`https://express-project-smoky.vercel.app/products/${productId}`)
+        const baseUrl = process.env.BASE_URL;
+        const response = await fetch(`${baseUrl}/products/${productId}`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -37,7 +41,8 @@ async function getProductById(productId) {
 
 async function searchProducts(query) {
     try {
-        const response = await fetch('https://express-project-smoky.vercel.app/products')
+        const baseUrl = process.env.BASE_URL;
+        const response = await fetch(`${baseUrl}/products`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
