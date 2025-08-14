@@ -3,7 +3,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
-require('dotenv').config();
+const url =  'https://mcp-server-eta.vercel.app';
+
 
 // Create an MCP server
 const server = new McpServer({
@@ -13,8 +14,7 @@ const server = new McpServer({
 
 async function getProductInfo() {
     try {
-        const baseUrl = process.env.BASE_URL;
-        const response = await fetch(`${baseUrl}/products`)
+        const response = await fetch(`${url}/products`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -27,8 +27,7 @@ async function getProductInfo() {
 
 async function getProductById(productId) {
     try {
-        const baseUrl = process.env.BASE_URL;
-        const response = await fetch(`${baseUrl}/products/${productId}`)
+        const response = await fetch(`${url}/products/${productId}`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -41,8 +40,7 @@ async function getProductById(productId) {
 
 async function searchProducts(query) {
     try {
-        const baseUrl = process.env.BASE_URL;
-        const response = await fetch(`${baseUrl}/products`)
+        const response = await fetch(`${url}/products`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -97,7 +95,7 @@ server.tool('searchProducts', {
 })
 
 async function init(params) {
-    console.error('runnig server')
+    console.error('runnig server', url)
 const transport = new StdioServerTransport();
 await server.connect(transport);
     
